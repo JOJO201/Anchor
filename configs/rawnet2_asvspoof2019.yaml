@@ -1,0 +1,40 @@
+seed: 1234
+
+audio:
+  sample_rate: 16000
+  num_samples: 64600
+  random_crop_train: true
+
+model:
+  sample_rate: 16000
+  first_conv: 1024
+  sinc_filters: 20
+  residual_channels: 128
+  gru_hidden: 1024
+  gru_layers: 3
+  fc_hidden: 1024
+  num_classes: 2
+
+anchoradd:
+  # z(x,c) = [phi(c), phi(x) - alpha * phi(c)]
+  alpha: 1.0
+  # Probability of applying an anchored view to a training mini-batch.
+  delta: 1.0
+  # Anchors are selected only from the training manifest.
+  bank_size: 256
+  bank_seed: 2026
+  eval_anchor_count: 10
+
+training:
+  epochs: 100
+  batch_size: 32
+  eval_batch_size: 32
+  num_workers: 4
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  amsgrad: true
+  # Internal labels: spoof=0, bonafide=1.
+  class_weights: [0.1, 0.9]
+
+evaluation:
+  ece_bins: 10
